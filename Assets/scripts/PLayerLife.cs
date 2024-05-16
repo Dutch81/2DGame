@@ -19,14 +19,7 @@ public class PLayerLife : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Trap"))
         {
-            Die();
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Trap"))
-        {
+            healthBar.SetHealth(0);
             Die();
         }
     }
@@ -43,21 +36,22 @@ public class PLayerLife : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public int maxHealth = 3;
-    public int currentHealth =3;
+    public int currentHealth = 3;
 
     public HealthBar healthBar;
 
-   
 
-   
+
+
 
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
-        if(currentHealth <= 0)
         healthBar.SetHealth(currentHealth);
+        if (currentHealth <= 0)
         {
-            Destroy(gameObject);
+            Die();
+            GetComponent<PlayerMovement>().enabled = false;
         }
     }
 }
