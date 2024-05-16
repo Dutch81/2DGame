@@ -7,10 +7,12 @@ public class PLayerLife : MonoBehaviour
     private Animator anim;
 
     [SerializeField] private AudioSource deathSoundEffect;
-    private void Start()
+    public void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -39,5 +41,23 @@ public class PLayerLife : MonoBehaviour
     private void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    public int maxHealth = 3;
+    public int currentHealth =3;
+
+    public HealthBar healthBar;
+
+   
+
+   
+
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        if(currentHealth <= 0)
+        healthBar.SetHealth(currentHealth);
+        {
+            Destroy(gameObject);
+        }
     }
 }
