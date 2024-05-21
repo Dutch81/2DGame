@@ -24,11 +24,12 @@ public class PLayerLife : MonoBehaviour
         }
     }
 
-    private void Die()
+    public void Die()
     {
         deathSoundEffect.Play();
         rb.bodyType = RigidbodyType2D.Static;
         anim.SetTrigger("death");
+        RestartLevel();
     }
 
     private void RestartLevel()
