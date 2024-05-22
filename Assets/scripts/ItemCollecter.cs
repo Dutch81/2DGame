@@ -11,12 +11,12 @@ public class ItemCollecter : MonoBehaviour
 
     [SerializeField] private AudioSource collectionSoundEffect;
 
-    // Reference to the Gun2D script
+    
     private Gun2D gun;
 
     private void Start()
     {
-        // Find the Gun2D script attached to the player
+        
         gun = GetComponent<Gun2D>();
 
         if (gun == null)
@@ -34,7 +34,7 @@ public class ItemCollecter : MonoBehaviour
             Pineapples++;
             PineapplesText.text = "Pineapples: " + Pineapples;
 
-            // Reload bullets when a pineapple is collected
+            
             if (gun != null)
             {
                 gun.ReloadBullets();
