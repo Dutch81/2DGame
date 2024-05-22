@@ -5,6 +5,7 @@ public class EnemyAttack : MonoBehaviour
 {
     public float timeBetweenAttacks = 0.5f;
     public int attackDamage = 1;
+    public float knockbackForce = 10f;
 
     Animator anim;
     GameObject player;
@@ -12,6 +13,8 @@ public class EnemyAttack : MonoBehaviour
     EnemyHealth enemyHealth;
     bool playerInRange;
     float timer;
+    Rigidbody playerRigidbody;
+    public Animation attackAnimation;
 
 
     void Awake()
@@ -20,6 +23,7 @@ public class EnemyAttack : MonoBehaviour
         playerHealth = player.GetComponent<PLayerLife>();
         enemyHealth = GetComponent<EnemyHealth>();
         anim = GetComponent<Animator>();
+        playerRigidbody = player.GetComponent<Rigidbody>();
     }
 
 
@@ -65,7 +69,9 @@ public class EnemyAttack : MonoBehaviour
 
         if (playerHealth.currentHealth > 0)
         {
+            attackAnimation.Play();
             playerHealth.TakeDamage(attackDamage);
+            ApplyKnockback();
         }
     }
     //public class EnemyHealth : MonoBehaviour
@@ -73,4 +79,11 @@ public class EnemyAttack : MonoBehaviour
     //    public int maxHealth = 1;
     //    public int curHealth = 1;
     //}
+    void ApplyKnockback()
+    {
+        
+        Vector3 knockbackDirection = (player.transform.position - transform.position).normalized;
+        
+        playerRigidbody.AddForce(knockbackDirection * knockbackForce, ForceMode.Impulse);
+    }
 }

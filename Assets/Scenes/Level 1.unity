@@ -600,6 +600,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeBetweenAttacks: 0.5
   attackDamage: 1
+  knockbackForce: 10
+  attackAnimation: {fileID: 0}
 --- !u!1 &73758139
 GameObject:
   m_ObjectHideFlags: 0
@@ -662,8 +664,8 @@ Transform:
   m_Children:
   - {fileID: 2007747788}
   - {fileID: 1489406775}
-  - {fileID: 774148197}
   - {fileID: 47070153}
+  - {fileID: 774148197}
   - {fileID: 1700113000}
   - {fileID: 907775875}
   - {fileID: 1834804296}
