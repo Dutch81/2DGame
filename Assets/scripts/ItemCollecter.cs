@@ -5,11 +5,25 @@ using UnityEngine.UI;
 
 public class ItemCollecter : MonoBehaviour
 {
-     private int Pineapples = 0;
+    private int Pineapples = 0;
 
     [SerializeField] private Text PineapplesText;
 
     [SerializeField] private AudioSource collectionSoundEffect;
+
+    // Reference to the Gun2D script
+    private Gun2D gun;
+
+    private void Start()
+    {
+        // Find the Gun2D script attached to the player
+        gun = GetComponent<Gun2D>();
+
+        if (gun == null)
+        {
+            Debug.LogError("Gun2D script not found on the player.");
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -19,6 +33,12 @@ public class ItemCollecter : MonoBehaviour
             Destroy(collision.gameObject);
             Pineapples++;
             PineapplesText.text = "Pineapples: " + Pineapples;
+
+            // Reload bullets when a pineapple is collected
+            if (gun != null)
+            {
+                gun.ReloadBullets();
+            }
         }
     }
 }
