@@ -5,6 +5,7 @@ public class PLayerLife : MonoBehaviour
 {
     private Rigidbody2D rb;
     private Animator anim;
+    public Gun2D gunScript;
 
     [SerializeField] private AudioSource deathSoundEffect;
     public void Start()
@@ -19,17 +20,24 @@ public class PLayerLife : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Trap"))
         {
-            healthBar.SetHealth(0);
             Die();
         }
     }
 
     public void Die()
     {
-        deathSoundEffect.Play();
-        rb.bodyType = RigidbodyType2D.Static;
-        anim.SetTrigger("death");
-        RestartLevel();
+        if (!gunScript.isInvincible)
+        {
+            healthBar.SetHealth(0);
+            deathSoundEffect.Play();
+            rb.bodyType = RigidbodyType2D.Static;
+            anim.SetTrigger("death");
+            RestartLevel();
+        }
+        else
+        {
+            return;
+        }
     }
 
     private void RestartLevel()
@@ -47,12 +55,20 @@ public class PLayerLife : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        currentHealth -= damage;
-        healthBar.SetHealth(currentHealth);
-        if (currentHealth <= 0)
+        if (!gunScript.isInvincible)
         {
-            Die();
-            GetComponent<PlayerMovement>().enabled = false;
+            currentHealth -= damage;
+            healthBar.SetHealth(currentHealth);
+            if (currentHealth <= 0)
+            {
+                Die();
+                GetComponent<PlayerMovement>().enabled = false;
+            }
         }
+        else
+        {
+            return;
+        }
+
     }
 }

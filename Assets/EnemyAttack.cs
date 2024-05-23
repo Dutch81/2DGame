@@ -16,7 +16,6 @@ public class EnemyAttack : MonoBehaviour
     Rigidbody playerRigidbody;
     public Animation attackAnimation;
 
-
     void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -26,7 +25,6 @@ public class EnemyAttack : MonoBehaviour
         playerRigidbody = player.GetComponent<Rigidbody>();
     }
 
-
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject == player)
@@ -35,7 +33,6 @@ public class EnemyAttack : MonoBehaviour
         }
     }
 
-
     void OnTriggerExit(Collider other)
     {
         if (other.gameObject == player)
@@ -43,9 +40,6 @@ public class EnemyAttack : MonoBehaviour
             playerInRange = false;
         }
     }
-
-
-
 
     void Update()
     {
@@ -62,28 +56,31 @@ public class EnemyAttack : MonoBehaviour
         }
     }
 
-
     void Attack()
     {
         timer = 0f;
 
         if (playerHealth.currentHealth > 0)
         {
-            attackAnimation.Play();
-            playerHealth.TakeDamage(attackDamage);
-            ApplyKnockback();
+            Gun2D playerGunScript = player.GetComponent<Gun2D>();
+
+            if (playerGunScript != null && !playerGunScript.isInvincible)
+            {
+                attackAnimation.Play();
+                playerHealth.TakeDamage(attackDamage);
+                ApplyKnockback();
+            }
+            else
+            {
+                Debug.Log("Player is invincible, no damage applied.");
+                return;
+            }
         }
     }
-    //public class EnemyHealth : MonoBehaviour
-    //{
-    //    public int maxHealth = 1;
-    //    public int curHealth = 1;
-    //}
+
     void ApplyKnockback()
     {
-        
         Vector3 knockbackDirection = (player.transform.position - transform.position).normalized;
-        
         playerRigidbody.AddForce(knockbackDirection * knockbackForce, ForceMode.Impulse);
     }
 }
