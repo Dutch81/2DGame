@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,10 +13,12 @@ public class Gun2D : MonoBehaviour
 
     public int pineappleCount = 0;
     public float invincibilityDuration = 5.0f;
-    public bool isInvincible = false; // Changed to public
+    public bool isInvincible = false;
     public Renderer playerRenderer;
     public Color invincibleColor = Color.yellow;
     private Color originalColor;
+
+    private InvincibilityTimer invincibilityTimer;
 
     void Start()
     {
@@ -26,6 +27,8 @@ public class Gun2D : MonoBehaviour
 
         playerRenderer = GetComponent<Renderer>();
         originalColor = playerRenderer.material.color;
+
+        invincibilityTimer = FindObjectOfType<InvincibilityTimer>();
     }
 
     void Update()
@@ -76,6 +79,8 @@ public class Gun2D : MonoBehaviour
         isInvincible = true;
         playerRenderer.material.color = invincibleColor;
         Debug.Log("Invincibility Activated");
+
+        invincibilityTimer.StartInvincibility(invincibilityDuration);
 
         yield return new WaitForSeconds(invincibilityDuration);
 
