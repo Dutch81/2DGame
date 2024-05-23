@@ -22,6 +22,15 @@ public class PLayerLife : MonoBehaviour
         {
             Die();
         }
+
+        if (collision.gameObject.CompareTag("Void"))
+        {
+            healthBar.SetHealth(0);
+            deathSoundEffect.Play();
+            rb.bodyType = RigidbodyType2D.Static;
+            anim.SetTrigger("death");
+            RestartLevel();
+        }
     }
 
     public void Die()
