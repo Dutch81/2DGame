@@ -32,7 +32,7 @@ public class ItemCollecter : MonoBehaviour
             collectionSoundEffect.Play();
             Destroy(collision.gameObject);
             Pineapples++;
-            PineapplesText.text = "Pineapples: " + Pineapples;
+            PineapplesText.text = "Coins: " + Pineapples;
 
             
             if (gun != null)

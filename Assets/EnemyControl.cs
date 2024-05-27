@@ -10,6 +10,8 @@ public class EnemyControl : MonoBehaviour
     private Animator anim;
     private Transform currentPoint;
     public float speed;
+    private bool isFacingRight = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +19,6 @@ public class EnemyControl : MonoBehaviour
         anim = GetComponent<Animator>();
         currentPoint = PointB.transform;
         anim.SetBool("isRunning", true);
-
     }
 
     // Update is called once per frame
@@ -33,14 +34,33 @@ public class EnemyControl : MonoBehaviour
             rb.velocity = new Vector2(-speed, 0);
         }
 
-        if (Vector2.Distance(transform.position, currentPoint.position) < 0.5f && currentPoint == PointB.transform)
+        if (Vector2.Distance(transform.position, currentPoint.position) < 0.5f)
         {
-            currentPoint = PointA.transform;
+            if (currentPoint == PointB.transform)
+            {
+                currentPoint = PointA.transform;
+                if (!isFacingRight)
+                {
+                    Flip();
+                }
+            }
+            else if (currentPoint == PointA.transform)
+            {
+                currentPoint = PointB.transform;
+                if (isFacingRight)
+                {
+                    Flip();
+                }
+            }
         }
-        if (Vector2.Distance(transform.position, currentPoint.position) < 0.5f && currentPoint == PointA.transform)
-        {
-            currentPoint = PointB.transform;
-        }
+    }
+
+    private void Flip()
+    {
+        isFacingRight = !isFacingRight;
+        Vector3 theScale = transform.localScale;
+        theScale.x *= -1;
+        transform.localScale = theScale;
     }
 
     private void OnDrawGizmos()
@@ -50,3 +70,5 @@ public class EnemyControl : MonoBehaviour
         Gizmos.DrawLine(PointA.transform.position, PointB.transform.position);
     }
 }
+
+
