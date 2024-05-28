@@ -20,6 +20,10 @@ public class Gun2D : MonoBehaviour
 
     private InvincibilityTimer invincibilityTimer;
 
+    private bool facingRight = true;  // Track the direction the player is facing
+    public Vector3 rightBulletSpawnOffset = new Vector3(0.5f, 0, 0);  // Offset when facing right
+    public Vector3 leftBulletSpawnOffset = new Vector3(-0.5f, 0, 0);  // Offset when facing left
+
     void Start()
     {
         Debug.Log("Initial bullet count: " + bulletCount);
@@ -33,6 +37,20 @@ public class Gun2D : MonoBehaviour
 
     void Update()
     {
+        // Track player movement direction
+        float horizontalInput = Input.GetAxis("Horizontal");
+        if (horizontalInput > 0)
+        {
+            facingRight = true;
+        }
+        else if (horizontalInput < 0)
+        {
+            facingRight = false;
+        }
+
+        // Update bullet spawn point based on facing direction
+        bulletSpawnPoint.localPosition = facingRight ? rightBulletSpawnOffset : leftBulletSpawnOffset;
+
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             Debug.Log("Current bullet count before shooting: " + bulletCount);
@@ -40,7 +58,17 @@ public class Gun2D : MonoBehaviour
             if (bulletCount > 0)
             {
                 var bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
-                bullet.GetComponent<Rigidbody2D>().velocity = bulletSpawnPoint.up * bulletSpeed;
+
+                // Set bullet direction based on player facing direction
+                if (facingRight)
+                {
+                    bullet.GetComponent<Rigidbody2D>().velocity = Vector2.right * bulletSpeed;
+                }
+                else
+                {
+                    bullet.GetComponent<Rigidbody2D>().velocity = Vector2.left * bulletSpeed;
+                }
+
                 bulletCount--;
                 Debug.Log("Bullet shot! Remaining bullets: " + bulletCount);
                 bulletText.text = "Bullets: " + bulletCount.ToString();
@@ -109,6 +137,8 @@ public class Gun2D : MonoBehaviour
         }
     }
 }
+
+
 
 
 
