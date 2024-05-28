@@ -120331,15 +120331,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5070550812415842220, guid: 431fc67e34ccdf34fb73f4f42c25fbd8, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5619527509716834370, guid: 431fc67e34ccdf34fb73f4f42c25fbd8, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5619527509716834370, guid: 431fc67e34ccdf34fb73f4f42c25fbd8, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7670434908528478321, guid: 431fc67e34ccdf34fb73f4f42c25fbd8, type: 3}
       propertyPath: m_IsActive
