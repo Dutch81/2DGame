@@ -120325,6 +120325,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 411992794}
+    - target: {fileID: 4869464744090653722, guid: 431fc67e34ccdf34fb73f4f42c25fbd8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5070550812415842220, guid: 431fc67e34ccdf34fb73f4f42c25fbd8, type: 3}
       propertyPath: m_Name
       value: Canvas
